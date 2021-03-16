@@ -6,36 +6,31 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "students")
-public class Student {
+@Table(name = "teachers")
+public class Teacher {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @NotNull
-    @Column(unique = true, length = 8)
-    private String dni;
-    @NotNull
-    @Column(unique = true, length = 20)
-    private String file;
     @NotNull
     @Column(length = 50)
     private String name;
     @NotNull
     @Column(length = 50)
     private String surname;
+    @NotNull
+    @Column(unique = true, length = 8)
+    private String dni;
     @OneToMany
     private List<Course> courses = new ArrayList<>();
-
-    public Student() {
+;
+    public Teacher() {
     }
 
-    public Student(@NotNull String dni, @NotNull String file, @NotNull String name,
-                   @NotNull String surname) {
-        this.dni = dni;
-        this.file = file;
+    public Teacher(@NotNull String name, @NotNull String surname, @NotNull String dni) {
         this.name = name;
         this.surname = surname;
+        this.dni = dni;
     }
 
     public Long getId() {
@@ -44,22 +39,6 @@ public class Student {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getDni() {
-        return dni;
-    }
-
-    public void setDni(String dni) {
-        this.dni = dni;
-    }
-
-    public String getFile() {
-        return file;
-    }
-
-    public void setFile(String file) {
-        this.file = file;
     }
 
     public String getName() {
@@ -76,6 +55,14 @@ public class Student {
 
     public void setSurname(String surname) {
         this.surname = surname;
+    }
+
+    public String getDni() {
+        return dni;
+    }
+
+    public void setDni(String dni) {
+        this.dni = dni;
     }
 
     public List<Course> getCourses() {
