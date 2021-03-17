@@ -1,5 +1,7 @@
 package com.alkemy.inscripcion.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.HashSet;
@@ -20,13 +22,16 @@ public class Course {
     private Integer max;
     //relacion Cursos con Alumnos
     @ManyToMany(mappedBy = "courses")
+    @JsonIgnoreProperties("curses")
     private Set<Student> students = new HashSet<>();
     //Relacion Cursos con Profesores
     @ManyToOne
+    @JsonIgnoreProperties("courses")
     @JoinColumn(name = "teacher_id")
     private Teacher teacher;
     //Relacion con Horarios
     @ManyToMany
+    @JsonIgnoreProperties("courses")
     @JoinTable(name = "courses_schedules",
        joinColumns = @JoinColumn(name = "course_id", referencedColumnName = "id"),
        inverseJoinColumns = @JoinColumn(name = "schedule_id", referencedColumnName = "id"))

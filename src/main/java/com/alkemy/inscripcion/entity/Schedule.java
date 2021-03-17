@@ -1,5 +1,7 @@
 package com.alkemy.inscripcion.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.HashSet;
@@ -16,6 +18,7 @@ public class Schedule {
     @Column(length = 25)
     private String description;
     @ManyToMany(mappedBy = "schedules")
+    @JsonIgnoreProperties("schedules")
     private Set<Course> courses = new HashSet<>();
 
     public Schedule() {

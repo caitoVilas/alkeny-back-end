@@ -1,5 +1,7 @@
 package com.alkemy.inscripcion.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.HashSet;
@@ -22,6 +24,7 @@ public class Teacher {
     @Column(unique = true, length = 8)
     private String dni;
     //Relacion Cursos con Profesores
+    @JsonIgnoreProperties("teacher")
     @OneToMany(mappedBy = "teacher", cascade = CascadeType.ALL)
     private Set<Course> courses = new HashSet<>();
 ;
