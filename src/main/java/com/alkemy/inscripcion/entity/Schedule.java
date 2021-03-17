@@ -2,6 +2,8 @@ package com.alkemy.inscripcion.entity;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "schedules")
@@ -13,6 +15,8 @@ public class Schedule {
     @NotNull
     @Column(length = 25)
     private String description;
+    @ManyToMany(mappedBy = "schedules")
+    private Set<Course> courses = new HashSet<>();
 
     public Schedule() {
     }
@@ -35,5 +39,13 @@ public class Schedule {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Set<Course> getCourses() {
+        return courses;
+    }
+
+    public void setCourses(Set<Course> courses) {
+        this.courses = courses;
     }
 }

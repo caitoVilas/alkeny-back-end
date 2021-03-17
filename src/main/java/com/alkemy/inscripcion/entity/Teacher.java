@@ -2,8 +2,8 @@ package com.alkemy.inscripcion.entity;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "teachers")
@@ -21,8 +21,9 @@ public class Teacher {
     @NotNull
     @Column(unique = true, length = 8)
     private String dni;
-    @OneToMany
-    private List<Course> courses = new ArrayList<>();
+    //Relacion Cursos con Profesores
+    @OneToMany(mappedBy = "teacher", cascade = CascadeType.ALL)
+    private Set<Course> courses = new HashSet<>();
 ;
     public Teacher() {
     }
@@ -65,11 +66,11 @@ public class Teacher {
         this.dni = dni;
     }
 
-    public List<Course> getCourses() {
+    public Set<Course> getCourses() {
         return courses;
     }
 
-    public void setCourses(List<Course> courses) {
+    public void setCourses(Set<Course> courses) {
         this.courses = courses;
     }
 }
