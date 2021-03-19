@@ -21,6 +21,11 @@ public class StudentService {
         return studentRepository.existsByFile(file);
     }
 
+    public Student getById(Long id){
+
+        return studentRepository.findById(id).orElse(null);
+    }
+
     public Student save(Student student){
 
         return studentRepository.save(student);

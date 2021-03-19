@@ -1,8 +1,10 @@
 package com.alkemy.inscripcion.controller;
 
 import com.alkemy.inscripcion.entity.Teacher;
+import com.alkemy.inscripcion.service.CourseService;
 import com.alkemy.inscripcion.service.TeacherService;
 import com.alkemy.inscripcion.util.Mensaje;
+import com.fasterxml.jackson.annotation.JacksonAnnotationsInside;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +21,8 @@ public class TeacherController {
 
     @Autowired
     TeacherService teacherService;
+    @Autowired
+    CourseService courseService;
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping
@@ -34,5 +38,17 @@ public class TeacherController {
 
         teacherService.save(teacher);
          return new ResponseEntity(new Mensaje("Profesor Creado"), HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> delete(@PathVariable("id") Long id){
+
+        if (courseService.findByTeacher(id) != null){
+            return new ResponseEntity(new Mensaje("El Profesor posee Cursos Activos"),
+                    HttpStatus.BAD_REQUEST);
+        }
+
+         teacherService.delete(id);
+         return new ResponseEntity(new Mensaje("Profesor Eliminado"),HttpStatus.OK);
     }
 }

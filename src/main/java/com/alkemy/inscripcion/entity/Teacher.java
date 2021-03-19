@@ -23,6 +23,8 @@ public class Teacher {
     @NotNull
     @Column(unique = true, length = 8)
     private String dni;
+    @NotNull
+    private boolean active;
     //Relacion Cursos con Profesores
     @JsonIgnoreProperties("teacher")
     @OneToMany(mappedBy = "teacher", cascade = CascadeType.ALL)
@@ -31,10 +33,12 @@ public class Teacher {
     public Teacher() {
     }
 
-    public Teacher(@NotNull String name, @NotNull String surname, @NotNull String dni) {
+    public Teacher(@NotNull String name, @NotNull String surname, @NotNull String dni,
+                   @NotNull boolean active) {
         this.name = name;
         this.surname = surname;
         this.dni = dni;
+        this.active = active;
     }
 
     public Long getId() {
@@ -63,6 +67,14 @@ public class Teacher {
 
     public String getDni() {
         return dni;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 
     public void setDni(String dni) {

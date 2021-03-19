@@ -35,7 +35,7 @@ public class CourseController {
             return new ResponseEntity(new Mensaje("Error en los datos"),
                     HttpStatus.BAD_REQUEST);
 
-        Course newCourse = new Course(course.getName(),course.getMax());
+        Course newCourse = new Course(course.getName(),course.getMax(),true);
         newCourse.setTeacher(course.getTeacher());
         Set<Schedule> schedules = new HashSet<>();
         course.getSchedules().stream().forEach(sch -> {
@@ -50,7 +50,7 @@ public class CourseController {
         return new ResponseEntity(new Mensaje("Curso Creado!"), HttpStatus.OK);
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole({'ROLE_ADMIN','ROLE_USER'})")
     @GetMapping("/{id}")
     public ResponseEntity<Course> verCurso(@PathVariable("id") Long id){
 

@@ -1,6 +1,7 @@
 package com.alkemy.inscripcion.service;
 
 import com.alkemy.inscripcion.entity.Course;
+import com.alkemy.inscripcion.entity.Teacher;
 import com.alkemy.inscripcion.repository.CourseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,4 +26,11 @@ public class CourseService {
 
         return courseRepository.save(course);
     }
+
+    @Transactional(readOnly = true)
+    public Course findByTeacher(long id){
+
+        return courseRepository.findByTeacher_id(id);
+    }
+
 }

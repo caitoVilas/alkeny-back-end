@@ -25,7 +25,7 @@ public class Student {
     @Column(length = 50)
     private String surname;
     //Relacion Alumnos con Cursos
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "stdents_courses",
             joinColumns = @JoinColumn(name = "student_id",referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "course_id", referencedColumnName = "id"))

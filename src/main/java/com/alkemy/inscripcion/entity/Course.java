@@ -20,6 +20,8 @@ public class Course {
     //private List<Integer> schedules = new ArrayList<>();
     @NotNull
     private Integer max;
+    @NotNull
+    private boolean active;
     //relacion Cursos con Alumnos
     @ManyToMany(mappedBy = "courses")
     @JsonIgnoreProperties("curses")
@@ -41,9 +43,10 @@ public class Course {
     public Course() {
     }
 
-    public Course(String name, Integer max) {
+    public Course(@NotNull String name, @NotNull Integer max, @NotNull boolean active) {
         this.name = name;
         this.max = max;
+        this.active = active;
     }
 
     public Long getId() {
@@ -69,6 +72,14 @@ public class Course {
 
     public void setMax(Integer max) {
         this.max = max;
+    }
+
+    public boolean getActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 
     public Teacher getTeacher() {
