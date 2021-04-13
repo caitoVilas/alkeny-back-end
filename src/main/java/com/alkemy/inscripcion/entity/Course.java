@@ -24,8 +24,9 @@ public class Course {
     private boolean active;
     //relacion Cursos con Alumnos
     @ManyToMany(mappedBy = "courses")
-    @JsonIgnoreProperties("curses")
+    @JsonIgnoreProperties("courses")
     private Set<Student> students = new HashSet<>();
+
     //Relacion Cursos con Profesores
     @ManyToOne
     @JsonIgnoreProperties("courses")

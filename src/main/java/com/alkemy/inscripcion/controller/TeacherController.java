@@ -13,6 +13,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/teacher")
@@ -40,6 +41,7 @@ public class TeacherController {
          return new ResponseEntity(new Mensaje("Profesor Creado"), HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable("id") Long id){
 
@@ -50,5 +52,14 @@ public class TeacherController {
 
          teacherService.delete(id);
          return new ResponseEntity(new Mensaje("Profesor Eliminado"),HttpStatus.OK);
+    }
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @GetMapping
+    public ResponseEntity<List<Teacher>> vewAll(){
+
+        List<Teacher> teachers = teacherService.view();
+
+        return new ResponseEntity<List<Teacher>>(teachers, HttpStatus.OK);
     }
 }

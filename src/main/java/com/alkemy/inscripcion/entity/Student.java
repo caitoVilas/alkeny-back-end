@@ -1,5 +1,7 @@
 package com.alkemy.inscripcion.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.HashSet;
@@ -25,6 +27,7 @@ public class Student {
     @Column(length = 50)
     private String surname;
     //Relacion Alumnos con Cursos
+    @JsonIgnoreProperties("students")
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "stdents_courses",
             joinColumns = @JoinColumn(name = "student_id",referencedColumnName = "id"),

@@ -13,7 +13,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -50,7 +49,17 @@ public class CourseController {
         return new ResponseEntity(new Mensaje("Curso Creado!"), HttpStatus.OK);
     }
 
-    @PreAuthorize("hasRole({'ROLE_ADMIN','ROLE_USER'})")
+    @PreAuthorize("hasRole('ROLE_USER')")
+    @GetMapping
+    public ResponseEntity<List<Course>> vewAll(){
+
+        List<Course> courses = courseService.view();
+
+        return new ResponseEntity<List<Course>>(courses, HttpStatus.OK);
+
+    }
+
+    @PreAuthorize("hasRole('ROLE_USER')")
     @GetMapping("/{id}")
     public ResponseEntity<Course> verCurso(@PathVariable("id") Long id){
 
